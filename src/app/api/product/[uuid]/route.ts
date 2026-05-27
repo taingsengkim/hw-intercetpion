@@ -1,7 +1,7 @@
 import { error } from "console"
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
-export async function GET(  request: Request,
+export async function GET(  request: NextRequest,
 {params}:{params:Promise<{uuid:string}>}){
     const {uuid} = await params
     const res = await fetch(`${process.env.BASE_ISHOP_API_URL}/products/${uuid}`)

@@ -1,22 +1,41 @@
+"use client";
 import ProductCardComponent from "@/components/products/ProductCardComponent";
 import { ProductType } from "@/lib/product-v2/product";
 import Image from "next/image";
 import Link from "next/link";
 import React, { Suspense, use } from "react";
+import useSWR from "swr";
 
-// async function to getProductPage
-async function getProducts() {
-  try {
-    const res = await fetch(`http://localhost:3000/api/product`, {
-      cache: "no-store",
-    });
-    const data = await res?.json();
-    console.log("Data from /dashboard/products", data);
-    return data;
-  } catch (error) {
-    throw new Error("Failed to fetching data from /dashboard/products");
-  }
-}
+// // async function to getProductPage
+// async function getProducts() {
+//   try {
+//     const res = await fetch(`http://localhost:3000/api/product`, {
+//       cache: "no-store",
+//     });
+//     const data = await res?.json();
+//     console.log("Data from /dashboard/products", data);
+//     return data;
+//   } catch (error) {
+//     throw new Error("Failed to fetching data from /dashboard/products");
+//   }
+// }
+
+// // create fetcher
+// const fetcher = async (url: string) =>
+//   async function getProducts() {
+//     try {
+//       const res = await fetch(url, {
+//         cache: "force-cache",
+//       });
+//       const data = await res?.json();
+//       console.log("Data from /dashboard/products", data);
+//       return data;
+//     } catch (error) {
+//       throw new Error("Failed to fetching data from /dashboard/products");
+//     }
+//   };
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 export default function ProductPageRoute() {
   return (
     <div className="flex flex-col gap-5">
@@ -45,15 +64,25 @@ export function LoadingSuspenseComponent() {
 }
 
 function ProductRenderingProcess() {
-  const data = use(getProducts());
-  console.log("THIS IS DATA", data);
+  // const data = use(getProducts());
+  const {
+    data: products,
+    error,
+    isLoading,
+  } = useSWR("http://localhost:3000/api/product", fetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    refreshInterval: 1000,
+  });
+  console.log("THIS IS DATA", products);
   return (
     <div>
       <h1>All Product</h1>
 
       <div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {data?.data?.content?.map(
+          {products?.data?.content?.map(
             ({ thumbnail, name, priceOut, description, uuid }: ProductType) => (
               <Link key={uuid} href={`/dashboard/products/${uuid}`}>
                 <ProductCardComponent
