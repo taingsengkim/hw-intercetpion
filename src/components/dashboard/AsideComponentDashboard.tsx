@@ -21,7 +21,7 @@ import {
 export function AsideComponentDashboard() {
   const pathName = usePathname();
   return (
-    <div className="w-full bg-black">
+    <div className="w-full ">
       <Sidebar aria-label="Sidebar with content separator example ">
         <SidebarItems>
           <SidebarItemGroup>

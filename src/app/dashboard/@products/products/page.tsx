@@ -19,7 +19,7 @@ async function getProducts() {
 }
 export default function ProductPageRoute() {
   return (
-    <div className="flex gap-5">
+    <div className="flex flex-col gap-5">
       <Link href={"/dashboard/create"}>Create Product</Link>
       <Link href={"/dashboard/edit"}>Edit Product</Link>
       <Suspense fallback={<LoadingSuspenseComponent />}>
@@ -52,7 +52,7 @@ function ProductRenderingProcess() {
       <h1>All Product</h1>
 
       <div>
-        <div className="grid grid-cols-1 sm:grid-cols-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {data?.data?.content?.map(
             ({ thumbnail, name, priceOut, description, uuid }: ProductType) => (
               <Link key={uuid} href={`/dashboard/products/${uuid}`}>

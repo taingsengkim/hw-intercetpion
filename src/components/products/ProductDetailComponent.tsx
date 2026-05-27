@@ -7,7 +7,7 @@ export default function ProductDetailComponent({
   data: ProductType;
 }) {
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-white p-6">
       <div className="mx-auto max-w-5xl space-y-6">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold text-gray-900">Product Detail</h1>
