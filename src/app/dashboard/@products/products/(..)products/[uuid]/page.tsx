@@ -31,7 +31,6 @@ export async function fetchDetail(uuid: string) {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
     const data = await res.json();
-    console.log("Data Detail", data);
     return data?.data;
   } catch (error) {
     throw new Error(`Failed to fetch product details: ${error}`);

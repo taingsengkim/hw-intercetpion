@@ -1,4 +1,15 @@
 import { AsideComponentDashboard } from "@/components/dashboard/AsideComponentDashboard";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "My Dashboard - SEO",
+  description: "This dashboard handles internal process background.",
+  openGraph: {
+    images: [
+      "https://i.pinimg.com/736x/e4/fe/ee/e4feee1e16642479b056c8ee7513b43a.jpg",
+    ],
+  },
+};
 
 export default function DashboardLayout({
   children,
