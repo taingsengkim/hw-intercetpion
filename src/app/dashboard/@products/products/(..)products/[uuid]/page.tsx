@@ -23,9 +23,12 @@ export default async function ProductDetailModal({
 
 export async function fetchDetail(uuid: string) {
   try {
-    const res = await fetch(`http://localhost:3000/api/product/${uuid}`, {
-      cache: "no-store",
-    });
+    const res = await fetch(
+      `https://hw-intercetpion.vercel.app/api/product/${uuid}`,
+      {
+        cache: "no-store",
+      },
+    );
 
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
